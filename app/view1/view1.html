@@ -1,1 +1,61 @@
-<p>This is the partial for view 1.</p>
+<div ng-controller="View1Ctrl as ctrl1" class="container text-center">
+    <link rel="stylesheet" href="view1.css">
+    <div class="row justify-content-md-center mt-5" style="align-items: flex-end; margin-bottom: 20px;">
+        <div class="col-md-auto">
+            <input ng-model="searchInput"
+                   type="text"
+                   placeholder="Search images"
+                   aria-label="Search images"
+                   class="form-control"
+                   ng-keypress="enterPress($event)"
+            >
+        </div>
+        <div class="col-md-auto">
+            <p class="h6">Per page:</p>
+        </div>
+        <div class="col-md-auto">
+            <select ng-model="perPageSize" class="form-control form-select-sm">
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+                <option value="18">18</option>
+                <option value="21">21</option>
+            </select>
+        </div>
+        <div class="col-md-auto">
+            <p class="h6">Select color:</p>
+        </div>
+        <div class="col-md-auto">
+            <select ng-model="color" class="form-control form-select-sm">
+                <option value="black_and_white">Black and white</option>
+                <option value="black">Black</option>
+                <option value="white">White</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+                <option value="red">Red</option>
+                <option value="purple">Purple</option>
+                <option value="magenta">Magenta</option>
+                <option value="green">Green</option>
+                <option value="teal">Teal</option>
+                <option value="blue">Blue</option>
+            </select>
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-light btn-block" ng-click="searchClick()">SEARCH</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-3" ng-repeat="image in photos.slice((currentPage - 1) * 6, currentPage * 6)">
+            <div class="card">
+                <img src="{{ image.url }}" alt="{{ image.alt }}" class="img-thumbnail">
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center" ng-show="photos.length > 0" style="align-items: flex-end;">
+        <button class="btn btn-outline-secondary btn-sm" ng-click="previousPage()" ng-disabled="currentPage === 1">&lt;</button>
+        <span style="margin-right: 10px; margin-left: 10px; padding-bottom: 3px;">{{ currentPage }} / {{ totalPages }}</span>
+        <button class="btn btn-outline-secondary btn-sm" ng-click="nextPage()" ng-disabled="currentPage === totalPages">&gt;</button>
+    </div>
+</div>
